@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Palvelin: Python, Heroku ja Django</title>
+
+		<meta name="author" content="Juha Nurmi">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+                                <section>
+                                        <h1>REST</h1>
+                                        <p>
+                                                <small>Juha Nurmi, etunimi.sukunimi@ahmia.fi</small>
+                                                <br />
+                                                <small><a href="https://ahmia.fi/static/0x062FCBC0.asc">Julkinen PGP-avain</a></small>
+                                        </p>
+                                </section>
+
+                                <section>
+                                        <section>
+                                                <h2>REST</h2>
+                                                <p>
+REST (Representational State Transfer) on hypermedian hajautettuun jakeluun tarkoitettu HTTP-protokollaan perustuva arkkitehtuurimalli ohjelmistorajapintojen toteuttamiseksi.
+                                                </p>
+                                        </section>
+                                        <section>
+                                                <h2>REST</h2>
+						<ul>
+<li>Keskeinen arkkitehtuuri web-teknologioille</li> 
+<li>Skaalautuu</li>
+<li>Selkeä</li> 
+<li>Resurssiorientoitunut</li>
+<li>Ketterä</li>
+						</ul>
+						</p>
+                                        </section>
+                                </section>
+                                <section>
+                                        <section>
+						<img width="80%" style="border: 0px; background: none;" src="./img/rat.jpg" alt="Rotta">
+						<p>Rajapinta rotille</p>
+                                        </section>
+                                        <section>
+						<p>Ilman suunnittelumallia...</p>
+                                                <ul>
+						 <li>/getAllRats</li>
+						 <li>/foodNeeded</li>
+						 <li>/saveRat</li>
+						 <li>/getRat</li>
+						 <li>/addRat</li>
+						 <li>/cleanRat</li>
+						 <li>/moveRat</li>
+						 <li>/removeRat</li>
+						 <li>...</li>
+						</ul>
+                                        </section>
+                                        <section>
+                                                <p>Mutta rottien maailma on valtava!</p>
+                                        </section>
+					<section>
+                                                <p>Jatkuva tarve lisämetodeille ja vanhojen muutoksille</p>
+						<ul>
+						 <li>/addMaleRat</li>
+						 <li>/cleanAllRats</li>
+						 <li>/moveAllRats</li>
+						 <li>...</li>
+						</ul>
+					</section>
+                                        <section> 
+                                                <h2>REST-suunnitteluesimerkki</h2>
+                                                <p>Loputon suo ilman oikeaa strategiaa</p>
+                                        </section>
+                                        <section>
+                                                <h2>REST-suunnitteluesimerkki</h2>
+                                                <p>REST pitää homman hallussa ja yksinkertaisena</p>
+                                        </section>
+                                        <section>
+                                                <h2>REST-suunnitteluesimerkki</h2>
+                                                <p>Hyvin yksinkertaiset resurssit ja metodit</p>
+                                        </section>
+                                        <section>
+                                                <h2>REST-suunnitteluesimerkki</h2>
+                                                <ul>
+						 <li>/rats</li>
+						 <li>/rats/&lt;toiminto&gt;</li>
+                                                 <li>/rats/&lt;id&gt;/&lt;resurssi&gt;</li>
+					        </ul>
+                                        </section>
+                                        <section>
+                                                <h2>REST-suunnitteluesimerkki</h2>
+						<p>HTTP-protokolla tarjoaa metodit:</p>
+                                                <ul>                    
+                                                 <li>GET (hae)</li>
+                                                 <li>POST (muokkaa)</li>
+                                                 <li>PUT (lisää)</li>
+						 <li>DELETE (poista)</li>
+                                                </ul> 
+                                        </section>
+                                        <section> 
+                                                <h2>REST-suunnitteluesimerkki</h2> 
+                                                <ul>                    
+                                                 <li>/rats?limit=25&offset=50</li> 
+                                                 <li>/rats?color=black&state=running&location=park</li>
+                                                </ul>
+                                        </section>
+                                        <section> 
+                                                <h2>REST-suunnitteluesimerkki</h2> 
+                                                <ul>                    
+                                                 <li>HTTP HEADER-kenttään toivottu vastausdatan muoto</li>
+                                                 <li>Accept: application/json</li>
+                                                </ul>
+                                        </section>
+				</section>
+
+				<section>
+                                        <section>
+                                                <h2>REST Show case</h2>
+						<p>Verkkosivuston suosion ryömiminen</p>
+						<p>Datan tarjoaminen helposti analysoitavaksi</p>
+                                        </section>
+                                </section>
+
+				<section>
+                                        <section>
+						<img width="80%" style="border: 0px; background: none;" src="./img/rest_django.png" alt=""> <br />
+                                                <p>Valmiin REST-komponentin käyttöönotto Djangossa</p>
+                                                <pre>
+						 <code class="bash">
+pip install djangorestframework
+pip install markdown       # Markdown support for the browsable API.
+pip install django-filter  # Filtering support
+						 </code>
+                                                </pre>
+                                        </section>
+                                        <section>
+						<img width="80%" style="border: 0px; background: none;" src="./img/rest_django.png" alt=""> <br />
+                                                <p>Valmiin REST-komponentin käyttöönotto Djangossa</p>
+						<p>settings.py: lisää 'rest_framework' INSTALLED_APPS-asetuksiin</p>
+                                                <pre>
+                                                 <code class="python">
+INSTALLED_APPS = (
+    ...
+    'rest_framework',
+)
+                                                 </code>
+                                                </pre>
+                                        </section>
+                                        <section>
+						<img width="80%" style="border: 0px; background: none;" src="./img/rest_django.png" alt=""> <br />
+                                                <p>Valmiin REST-komponentin käyttöönotto Djangossa</p>
+                                                <p>settings.py: näkymät ja käyttöoikeudet</p>
+                                                <pre>
+                                                 <code class="python">
+REST_FRAMEWORK = {
+    # Use hyperlinked styles by default.
+    # Only used if the `serializer_class` attribute is not set on a view.
+    'DEFAULT_MODEL_SERIALIZER_CLASS':
+        'rest_framework.serializers.HyperlinkedModelSerializer',
+ 
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
+                                                 </code>
+                                                </pre>
+                                        </section>
+                                        <section>
+						<img width="80%" style="border: 0px; background: none;" src="./img/rest_django.png" alt=""> <br />
+                                                <p>Valmiin REST-komponentin käyttöönotto Djangossa</p>
+                                                <p>urls.py: lisää selaimella selailtava REST API</p>
+                                                <pre>
+                                                 <code class="python">
+urlpatterns = patterns('',
+    ...
+    url(r'^api-auth/', include('rest_framework.urls', 
+				namespace='rest_framework'))
+)
+                                                 </code>
+                                                </pre>
+                                        </section>
+                                        <section>
+						<img width="80%" style="border: 0px; background: none;" src="./img/rest_django.png" alt=""> <br />
+                                                <p>Valmiin REST-komponentin käyttöönotto Djangossa</p>
+                                                <p>urls.py: lisää selaimella selailtava REST API</p>
+                                                <pre>
+                                                 <code class="python">
+from suosio.models import *
+
+#REST API
+from rest_framework import viewsets, routers
+
+#REST API viewsets
+# ViewSets define the website view's behavior
+class WebsiteViewSet(viewsets.ModelViewSet):
+    model = Website
+
+# Routers provide an easy way of automatically determining the URL conf.
+router = routers.DefaultRouter()
+router.register(r'websites', WebsiteViewSet)
+                                                 </code>
+                                                </pre>
+                                        </section>
+                                </section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

@@ -1,0 +1,468 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Palvelin: Python, Heroku ja Django</title>
+
+		<meta name="author" content="Juha Nurmi">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+		
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Selain ohjelmointialustana</h1>
+					<p>
+						<small>Juha Nurmi, etunimi.sukunimi@ahmia.fi</small>
+						<br />
+						<small><a href="https://ahmia.fi/static/0x062FCBC0.asc">Julkinen PGP-avain</a></small>
+					</p>
+				</section>
+
+
+				<!-- Example of nested vertical slides -->
+				<section>
+					<section>
+						<p>WWWW ja sen teknologiat suunniteltu alunperin dokumenttien selailuun</p>
+						<img style="width: 50%; border: 0px; background: none;" src="./img/netscape.png" alt="Vanha selain">
+					</section>
+					<section>
+						<h2>Modernit selaimet ovat ohjelmointialustoja</h2>
+						<p><a href="http://media.tojicode.com/q3bsp/">Quake - 3D-peli selaimessa WebGL:llä toteutettuna</a></p>
+						<img style="width: 60%; border: 0px; background: none;" src="./img/firefox.png" alt="Moderni selain">
+					</section>
+					<section>
+						<h2>Modernit selaimet ovat ohjelmointialustoja</h2>
+						<p>Tarjoaa samanlaisia sovellusrajapintoja kuin käyttöjärjestelmä</p>
+                                                <ul>
+                                                    <li>JavaScript</li>
+                                                    <li>HTML5</li>
+						    <li>Canvas</li>
+						    <li>WebGL</li>
+						    <li>WebSocket</li>
+						    <li>WebRTC</li>
+                                                </ul>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>JavaScript</h2>
+						<p>JavaScript on selaimessa suoritettava ohjelmointikieli</p>
+						<ul>
+						  <li>Scriptimäinen</li>
+						  <li>Nykyään suorituskykyinen</li>
+						  <li>Suuri määrä kirjastoja</li>
+						</ul>
+					</section>
+					<section>
+                                                <h2>JavaScript</h2>
+						<p>Syitä opetella JavaScript:</p>
+						<ul>
+						  <li>HTML määrittelee sivujen sisällön</li>
+						  <li>CSS määrittelee ulkoasun</li>
+						  <li>JavaScript lisää dynaamisen käyttäytymisen</li>
+						</ul>						
+					</section>
+                                        <section>
+                                                <h2>JavaScript:n piirteitä</h2>
+                                                <ul>
+                                                  <li>Muuttujien esittely tapahtuu <b>var</b>-avainsanalla</li>
+						  <li>Muuttujiin voi sijoittaa lukuarvoja, merkkijonoja tai <b>new</b>-avainsanaa käyttämällä objekteja</li>
+                                                </ul>
+						<pre>
+						 <code class="javascript">
+var name = "Matti";
+var age = 40;
+var shoe = new Shoe();
+						 </code>
+						</pre>
+                                        </section>
+                                        <section>
+                                                <h2>JavaScript:n piirteitä</h2>
+                                                <ul>
+                                                  <li>Objektit koostuvat ominaisuuksista, joita voi lisätä myös lennossa</li>
+                                                  <li>Myös ominaisuudet voivat olla objekteja, joilla on ominaisuuksia</li>
+                                                </ul>
+                                                <pre>
+                                                 <code class="javascript">
+shoe.type = 'walking';
+shoe.brand = 'Nike';
+shoe.bought = new Date(2009,10,1);
+                                                 </code>
+                                                </pre>
+                                        </section>
+                                        <section>
+                                                <h2>JavaScript:n piirteitä</h2>
+                                                <pre>
+                                                 <code class="javascript">
+// kommentit kahdella kauttaviivalla
+// funktio määritellään avainsanalla function
+// function nimi( par1, par2, ... , parN ){ ... }
+function() showAlert( teksti ){
+	alert( teksti );
+};
+                                                 </code>
+                                                </pre>
+                                        </section>
+                                        <section>
+                                                <h2>JavaScript:n piirteitä</h2>
+                                                <ul>
+                                                  <li>Myös funktiot ovat objekteja</li>
+                                                  <li>Ne liitetään objekteihin niiden ominaisuuksina</li>
+                                                </ul>
+                                                <pre>
+                                                 <code class="javascript">
+shoe.manufacture = function() {
+        alert('Making a shoe!');
+};
+                                                 </code>
+                                                </pre>
+                                        </section>
+                                        <section> 
+                                                <h2>JavaScript-koodin liittäminen HTML-dokumenttiin</h2>
+                                                <pre>
+                                                 <code class="html">
+&lt;!-- JavaScript-koodi voidaan upottaa suoraan script-elementin sisään --&gt;
+&lt;script type="text/javascript"&gt; ... &lt;/script&gt;
+
+&lt;!-- Tai se voidaan ladata erillisestä tiedostosta --&gt;
+&lt;!-- Tällöin viittaus tiedostoon tehdään href-attribuutin avulla --&gt;
+&lt;script type="text/javascript" src="koodi.js"&gt;&lt;/script&gt;
+                                                 </code>
+                                                </pre>                                        
+					</section>
+                                        <section>
+                                                <h2>JavaScript-esimerkkejä</h2>
+						<p>Tästä on hyvä lähteä opettelemaan</p>
+<p><a href="http://www.w3schools.com/js/DEFAULT.asp">W3Schools:n JavaScript-tutoriaali</a></p>
+                                        </section>
+					<section>
+<img style="border: 0px; background: none;" src="./img/jquery-mark-dark.gif" alt="jqueryn logo">
+					</section>
+                                        <section>
+                                                <h2>JavaScript-esimerkkejä</h2>
+						<ul>
+<li>jQuery on yleiskäyttöinen kirjasto, joka helpottaa JavaScript-ohjelmointia</li>
+<li>vapaa ohjelmistokirjasto</li>
+<li>syntaksi helppolukuista</li>
+<li>käytetään lähes kaikkialla JavaScriptin kanssa</li>
+<li><a href="http://www.w3schools.com/jquery/jquery_examples.asp">W3Schools:n jQuery-tutoriaali</a></li>
+						</ul>
+                                        </section>
+                                        <section>
+                                                <h2>Selainpään koodailun testailuun</h2>
+                                                <ul>
+<li><a href="http://jsfiddle.net/">jsFiddle.net</a> - kätevä online-palvelu HTML+CSS+JavaScript-sovellusten testailuun suoraan selaimessa</li>
+<li>Vastaava on tälläkin kurssilla usein käytetty <a href="http://jsbin.com/">jsbin.com</a></li>
+                                                </ul>
+                                        </section>
+                                        <section> 
+                                                <h2>Selaimen työkalut</h2>
+                                                <ul>
+<li>Google chromessa / Chromiumissa kehitystyökalut löytyvät valikon kohdasta Tools-&gt;JavaScript console tai painamalla ctrl+shift+j</li>
+<li>Firefoxissa taas ne löytyvät Tools-&gt;Web developer-&gt;Web console tai painamalla ctrl+shift+k</li>
+<li>Eräs kehitystyökaluista on JavaScript-komentorivi, jolla voi suorittaa omaa JavaScript-koodia verkkosivulla</li>
+<li>Muilla työkaluilla voi mm. tarkastella ajonaikaista DOM-puuta sekä verkkoliikennettä</li>
+                                                </ul>
+                                        </section>
+                                        <section>
+                                                <h2>Selaimen työkalut</h2>
+                                                <ul>
+<li><a href="https://iislab.ee.tut.fi/hmblogi/juha/2013/06/06/hassu-demo/">Hassu demo</a></li>
+<li>hs.fi:n maksumuurin kiertäminen</li>
+                                                </ul>
+						<pre>
+						 <code class="javascript">
+window.location = msnAwareShortUrl;
+						 </code>
+						</pre>
+                                        </section>
+                                </section>
+
+                                <section> 
+                                        <section> 
+                                                <h2>JSON</h2>
+                                                <ul>
+                                                 <li>JSON: <b>J</b>avaScript <b>O</b>bject <b>N</b>otation</li>
+                                                 <li>Yleinen tietorakenne web-sovelluksissa</li>
+                                                 <li>Python- ja JavaScript-kielen kanssa yleinen ja helppokäyttöinen</li>
+						 <li>Muistuttaa XML-kieltä, mutta yksinkertaisempi syntaksi</li>
+						 <li>Tekstipohjainen, mutta nopeampi käsitellä kuin XML</li>
+                                                </ul>
+                                        </section>
+                                        <section>    
+                                                <h2>JSON</h2>
+                                                <ul> 
+                                                 <li>JSON on helppolukuista ja itseään kuvailevaa</li>
+                                                 <li>Sisäänrakennettu JavaScript-kieleen</li>
+                                                 <li>Nimi-arvo-parit</li>
+                                                </ul>
+						<pre>
+						 <code class="json">
+						 { "etunimi":"Juha" , "sukunimi":"Nurmi" }
+						 </code>
+						</pre>
+                                        </section>
+                                        <section>    
+                                                <h2>JSON</h2>
+                                                <ul> 
+                                                 <li>Data erotellaan pilkuilla</li>
+                                                 <li>{} sisälle objektit</li>
+                                                 <li>[] sisälle taulukot</li>
+                                                </ul>
+                                        </section>
+                                        <section>    
+                                                <h2>JSON</h2>
+						<p>Arvot voivat olla:</p>
+                                                <ul> 
+                                                 <li>numeroita</li>
+                                                 <li>merkkijonoja</li>
+                                                 <li>Boolean (true/false)</li>
+						 <li>Taulukoita</li>
+						 <li>Objekteja</li>
+					         <li>null</li>
+                                                </ul>
+                                        </section>
+                                        <section>
+                                                <h2>JSON</h2>
+						<pre>
+						 <code class="json">
+{
+ "employees": [
+	{ "firstName":"John" , "lastName":"Doe" }, 
+	{ "firstName":"Anna" , "lastName":"Smith" }, 
+	{ "firstName":"Peter" , "lastName":"Jones" }
+ ]
+}
+						 </code>
+						</pre>
+                                        </section>
+                                        <section>
+                                                <h2>JSON</h2>
+						<p><a href="http://www.w3schools.com/json/tryit.asp?filename=tryjson_create">JSON Object Creation in JavaScript</a></p>
+                                        </section>
+				</section>
+
+
+				<section>
+                                        <section>
+                                                <h2>HTML5</h2>
+                                                <ul>
+                                                 <li>HTML-kielen viimeisin versio</li>
+                                                 <li>Paljon ohjelmointia helpottavia piirteitä</li>
+                                                 <li>Canvas, WebGL, WebStorage, <a href="http://www.w3schools.com/html/html5_form_attributes.asp">uudet lomakkeet</a>...</li>
+                                                </ul>
+                                        </section>
+                                        <section>
+                                                <h2>HTML5 Web Storage</h2>
+                                                <ul>
+                                                 <li>Selaimen cookie on kömpelö tapa säilöä tietoja selaimessa</li>
+						 <li>Web Storage tekee tietojan tallentamisesta ja hakemisesta helppoa</li>
+                                                 <li>JavaScriptilla ohjelmoitavissa</li>
+                                                 <li>Objektin kokoraja 10-15 megatavua</li>
+						 <li>Yksinkertainen avain-arvo-pari-tietomalli</li>
+                                                </ul>
+                                        </section>
+                                        <section>
+                                                <h2>HTML5 Web Storage</h2>
+						<pre>
+						 <code class="javascript">
+// Store value on browser for duration of the session
+sessionStorage.setItem('key', 'value');
+ 
+// Retrieve value (gets deleted when browser is closed and re-opened)
+alert(sessionStorage.getItem('key'));
+						 </code>
+						</pre>
+                                        </section>
+                                        <section>
+                                                <h2>HTML5 Web Storage</h2>
+                                                <pre>
+                                                 <code class="javascript">
+// Store value on the browser beyond the duration of the session
+localStorage.setItem('key', 'value');
+ 
+// Retrieve value (persists even after closing and re-opening the browser)
+alert(localStorage.getItem('key'));
+                                                 </code>
+                                                </pre>
+                                        </section>
+				</section>
+                                <section>
+                                        <section>
+                                                <h2>Canvas</h2>
+						<ul>
+						 <li>HTML5 &lt;canvas&gt;-elementtiä käytetään dynaamisen grafiikan piirtämiseen JavaScriptin avulla</li>
+					         <li>&lt;canvas&gt;-elementti on vain säiliö grafiikalle ja varsinainen sisältö pitää tuottaa JavaScriptin avulla</li>
+						 <li>Canvas tarjoaa useita piirtometodeja, kuten viivat, laatikot, ympyrät sekä teksti ja kuvien lisäämisen</li>
+						</ul>
+                                        </section>
+					<section>
+						<h2>Canvas-demo</h2>
+						<p><a href="http://jsbin.com/tewasulu/1/edit">Esimerkki Canvas-elementtiin piirtämisestä</a></p>
+					</section>
+                                        <section>
+                                                <h2>Canvas</h2>
+                                                <p><a href="http://andrew-hoyer.com/experiments/cloth/">Canvas-piirtoa</a></p>
+                                        </section>
+					<section>
+						<h2>Canvas</h2>
+						<p><a href="./demos/fractal.html">Fraktaali</a></p>
+					</section>
+				</section>
+                                <section>
+                                        <section>
+                                                <h2>WebGL</h2>
+                                                <ul>
+                                                 <li>WebGL (Web Graphics Library) on selaimen natiivi JavaScript API 2D- ja 3D-grafiikan piirtoon</li>
+                                                 <li>Rautakiihdytetty eli GPU hoitaa grafiikan suorittamisen</li>
+						 <li>WebGL on matalan tason kieli</li>
+                                                 <li>Kirjastojen avulla käyttäminen muuttuu yksinkertaiseksi</li>
+                                                </ul>
+                                        </section>
+                                        <section>
+                                                <h2>WebGL</h2>
+                                                <ul>
+                                                 <li>Ensimmäiset alpha-versiot selaimiin vuonna 2010</li>
+                                                 <li>Toimii nykyään kaikissa selaimissa</li>
+                                                 <li>WebGL kieli OpenGL-kielen kaltaista</li>
+                                                 <li>Näytönohjaimen ajurien oltava kunnossa</li>
+						 <li>Piirto tapahtuu canvas-elementtiin</li>
+                                                </ul>
+                                        </section>
+                                        <section> 
+                                                <h2>X3DOM</h2>
+                                                <ul>
+                                                 <li>X3DOM-tekee 3D-grafiikaohjelmoinnista helppoa</li>
+						 <li>Näyttää XML-pohjaista X3D-formaattia osana HTML-dokumenttia</li>
+                                                 <li><a href="http://x3dom.org/x3dom/example/x3dom_helloWorld.html">X3DOM-esimerkki</a></li>
+                                                 <li>X3D osana DOM-rajapintaa mahdollistaa 3D:n muokkaamisen JavaScript:n avulla</li>
+                                                 <li>Jos WebGL-tuki puuttuu, niin X3DOM-kirjasto siirtää piirron Flashille</li>
+						 <li><a href="http://x3dom.org/x3dom/example/x3dom_simpleManip.xhtml">DOM:n kautta dynaamisia muutoksia</a></li>
+                                                </ul>
+                                        </section>
+                                </section>
+				<section>
+                                        <section>
+                                                <h2>WebSocket</h2>
+                                                <ul>
+						 <li>Selaimen ja palvelimen välinen tiedonsiirtoprotokolla</li>
+						 <li>Ratkaisu nopeaan tiedonsiirtoon HTTP:n tilalle</li>
+                                                 <li>WebSocket on full-duplex yhden TCP-yhteyden päällä</li>
+                                                 <li>JavaScript hoitaa selainpäässä yhteyden</li>
+                                                </ul>
+                                        </section>
+                                </section>
+                                <section>
+                                        <section>
+                                                <h2>WebRTC</h2>
+                                                <ul>
+                                                 <li>Selaimen ja selaimen välinen tiedonsiirtoprotokolla</li>
+                                                 <li>Mahdollistaa P2P-ratkaisut</li>
+                                                 <li>Yhteyden muodostaminen broker-palvelimen</li>
+                                                 <li>JavaScript API</li>
+						 <li><a href="http://peerjs.com/">PeerJS</a>-kirjastolla ohjelmointi yksinkertaista</li>
+						 <li><a href="http://cdn.peerjs.com/demo/chat.html">Pikaviestimen toteutus selaimesta selaimeen</a></li>
+                                                </ul>
+                                        </section>
+                                </section>
+                                <section>
+                                        <section>
+                                                <h2>WebCL</h2>
+						<p>Tulevia mahdollisuuksia</p>
+                                                <ul>
+                                                 <li>WebCL on JavaScrip:n laajennus OpenCL-kielen suorittamiseksi</li>
+                                                 <li>Mahdollistaa GPU:lla ajettavan laskentakoodin suorittamisen selaimessa</li>
+                                                 <li>Tehokas rinnakkaisten laskentaongelmien ratkomiseksi</li>
+                                                </ul>
+                                        </section>
+                                </section>
+				<section>
+                                        <section>
+						<h2>Showcase selainpohjaisuudesta</h2>
+						<p><a href="http://www.youtube.com/watch?v=rx9qEkvtpT8">Selainpohjainen virtuaalikonelaboratorio</a></p>
+						<ul>
+						   <li>Simulaation arvot suorituskykyisellä WebSocket-yhteydellä selaimeen</li>
+						   <li>3D-grafiikka WebGL:n avulla</li>
+						   <li>Piirturit HTML5:n canvas-piirtopinnalle</li>
+						   <li>JavaScript säikeistetty useille ytimille</li>
+						</ul>
+                                        </section>
+                                </section>
+                                <section>
+                                        <section>
+                                                <h2>Lopuksi</h2>
+                                                <ul>
+                                                   <li>Dokumenttien WWW:stä on tullut sovellusten web</li>
+                                                   <li>Selain on ohjelmointialusta</li>
+                                                   <li>Yhä usemmat sovellukset selaimessa toimiviksi</li>
+                                                   <li>Palvelut pilveen</li>
+						   <li>Selain tarjoaa lopulta samat palvelut kuin käyttöjärjestelmä</li>
+                                                </ul>
+                                        </section>
+                                </section>
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
